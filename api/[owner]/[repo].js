@@ -48,17 +48,17 @@ module.exports = (req, res) => {
 				})
 				.then((response) => {
 					if (response.data[0].state === "success")
-						return res.status(200).json({
-							url: "https://img.shields.io/badge/vercel-passing-success",
-						});
+						return res.redirect(
+							"https://img.shields.io/badge/vercel-passing-success"
+						);
 					else if (response.data[0].state === "failure")
-						return res.status(200).json({
-							url: "https://img.shields.io/badge/vercel-failed-critical",
-						});
+						return res.redirect(
+							"https://img.shields.io/badge/vercel-failed-critical"
+						);
 					else if (response.data[0].state === "pending")
-						return res.status(200).json({
-							url: "https://img.shields.io/badge/vercel-pending-yellow",
-						});
+						return res.redirect(
+							"https://img.shields.io/badge/vercel-pending-yellow"
+						);
 				});
 		})
 		.catch((error) => {

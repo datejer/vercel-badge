@@ -4,7 +4,13 @@ module.exports = (req, res) => {
 	const { owner, repo } = req.query;
 
 	axios
-		.get(`https://api.github.com/repos/${owner}/${repo}/deployments`)
+		.get(`https://api.github.com/repos/${owner}/${repo}/deployments`, {
+			headers: {
+				Authorization: `Basic ${Buffer.from(
+					`${process.env.ID}:${process.env.SECRET}`
+				).toString("base64")}`,
+			},
+		})
 		.then((response) => {
 			if (response.data.length <= 0)
 				return res.status(404).json({
@@ -32,20 +38,28 @@ module.exports = (req, res) => {
 
 			const latest = vercelDeployments[0];
 
-			axios.get(latest.statuses_url).then((response) => {
-				if (response.data[0].state === "success")
-					return res.status(200).json({
-						url: "https://img.shields.io/badge/vercel-passing-success",
-					});
-				else if (response.data[0].state === "failure")
-					return res.status(200).json({
-						url: "https://img.shields.io/badge/vercel-failed-critical",
-					});
-				else if (response.data[0].state === "pending")
-					return res.status(200).json({
-						url: "https://img.shields.io/badge/vercel-pending-yellow",
-					});
-			});
+			axios
+				.get(latest.statuses_url, {
+					headers: {
+						Authorization: `Basic ${Buffer.from(
+							`${process.env.ID}:${process.env.SECRET}`
+						).toString("base64")}`,
+					},
+				})
+				.then((response) => {
+					if (response.data[0].state === "success")
+						return res.status(200).json({
+							url: "https://img.shields.io/badge/vercel-passing-success",
+						});
+					else if (response.data[0].state === "failure")
+						return res.status(200).json({
+							url: "https://img.shields.io/badge/vercel-failed-critical",
+						});
+					else if (response.data[0].state === "pending")
+						return res.status(200).json({
+							url: "https://img.shields.io/badge/vercel-pending-yellow",
+						});
+				});
 		})
 		.catch((error) => {
 			return res.status(error.response.status).json({

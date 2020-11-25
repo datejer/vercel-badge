@@ -1,4 +1,6 @@
 const axios = require("axios");
+const path = require("path");
+const fs = require("fs");
 
 module.exports = (req, res) => {
 	const { owner, repo } = req.query;
@@ -47,17 +49,27 @@ module.exports = (req, res) => {
 					},
 				})
 				.then((response) => {
+					res.setHeader("Content-Type", "image/svg+xml");
 					if (response.data[0].state === "success")
-						return res.redirect(
-							"https://img.shields.io/badge/vercel-passing-success"
+						return res.send(
+							fs.readFileSync(
+								path.join(__dirname, "../../assets/passing.svg"),
+								"utf8"
+							)
 						);
 					else if (response.data[0].state === "failure")
-						return res.redirect(
-							"https://img.shields.io/badge/vercel-failed-critical"
+						return res.send(
+							fs.readFileSync(
+								path.join(__dirname, "../../assets/failed.svg"),
+								"utf8"
+							)
 						);
 					else if (response.data[0].state === "pending")
-						return res.redirect(
-							"https://img.shields.io/badge/vercel-pending-yellow"
+						return res.send(
+							fs.readFileSync(
+								path.join(__dirname, "../../assets/pending.svg"),
+								"utf8"
+							)
 						);
 				});
 		})

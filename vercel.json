@@ -1,5 +1,10 @@
 {
 	"redirects": [
 		{ "source": "/", "destination": "https://github.com/datejer/vercel-badge" }
-	]
+	],
+	"functions": {
+		"api/[owner]/[repo].js": {
+			"includeFiles": "assets/**"
+		}
+	}
 }

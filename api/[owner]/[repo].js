@@ -14,13 +14,12 @@ module.exports = (req, res) => {
 			},
 		})
 		.then((response) => {
-			if (response.data.length <= 0)
-				return res.status(404).json({
-					error: {
-						code: "not_found",
-						message: "The requested repository does not have any deployments.",
-					},
-				});
+			if (response.data.length <= 0) {
+				res.setHeader("Content-Type", "image/svg+xml");
+				return fs
+					.createReadStream(path.join(__dirname, "../../assets/none.svg"))
+					.pipe(res);
+			}
 
 			const vercelDeployments = response.data.filter(
 				(deployment) =>
@@ -29,14 +28,12 @@ module.exports = (req, res) => {
 					deployment.creator.type === "Bot"
 			);
 
-			if (vercelDeployments.length <= 0)
-				return res.status(404).json({
-					error: {
-						code: "not_found",
-						message:
-							"The requested repository does not have any Vercel deployments.",
-					},
-				});
+			if (vercelDeployments.length <= 0) {
+				res.setHeader("Content-Type", "image/svg+xml");
+				return fs
+					.createReadStream(path.join(__dirname, "../../assets/none.svg"))
+					.pipe(res);
+			}
 
 			const latest = vercelDeployments[0];
 
@@ -51,34 +48,27 @@ module.exports = (req, res) => {
 				.then((response) => {
 					res.setHeader("Content-Type", "image/svg+xml");
 					if (response.data[0].state === "success")
-						return res.send(
-							fs.readFileSync(
-								path.join(__dirname, "../../assets/passing.svg"),
-								"utf8"
+						return fs
+							.createReadStream(
+								path.join(__dirname, "../../assets/passing.svg")
 							)
-						);
+							.pipe(res);
 					else if (response.data[0].state === "failure")
-						return res.send(
-							fs.readFileSync(
-								path.join(__dirname, "../../assets/failed.svg"),
-								"utf8"
-							)
-						);
+						return fs
+							.createReadStream(path.join(__dirname, "../../assets/failed.svg"))
+							.pipe(res);
 					else if (response.data[0].state === "pending")
-						return res.send(
-							fs.readFileSync(
-								path.join(__dirname, "../../assets/pending.svg"),
-								"utf8"
+						return fs
+							.createReadStream(
+								path.join(__dirname, "../../assets/pending.svg")
 							)
-						);
+							.pipe(res);
 				});
 		})
 		.catch((error) => {
-			return res.status(error.response.status).json({
-				error: {
-					code: error.response.statusText.toLowerCase().replace(/ /gi, "_"),
-					message: "The requested repository does not have any deployments.",
-				},
-			});
+			res.setHeader("Content-Type", "image/svg+xml");
+			return fs
+				.createReadStream(path.join(__dirname, "../../assets/error.svg"))
+				.pipe(res);
 		});
 };

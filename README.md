@@ -18,9 +18,10 @@ Replace `[repo]` with the repository name.
 
 These are all of the possible Vercel deployment statuses.
 
-![Passing Demo](https://img.shields.io/badge/vercel-passing-success)
-![Pending Demo](https://img.shields.io/badge/vercel-pending-yellow)
-![Failed Demo](https://img.shields.io/badge/vercel-failed-critical)
+![Passing Demo](https://vercelbadge.vercel.app/assets/passing.svg)
+![Pending Demo](https://vercelbadge.vercel.app/assets/pending.svg)
+![Failed Demo](https://vercelbadge.vercel.app/assets/failed.svg)
+![None Demo](https://vercelbadge.vercel.app/assets/none.svg)
 
 ## Ratelimits
 

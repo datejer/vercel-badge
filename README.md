@@ -27,6 +27,12 @@ These are all of the possible Vercel deployment statuses.
 
 This project uses the GitHub API with an OAuth app's ID and Secret to authenticate requests in order to up the ratelimit to 5k requests per hour. The publicly available deployment uses my private OAuth app credentials, so it's highly advised to deploy your own Vercel instance with your own credentials to avoid ratelimiting, especially with bigger projects.
 
+You can check the current GitHub API ratelimit by GETing /api/ratelimit
+
+```
+GET https://vercelbadge.vercel.app/api/ratelimit
+```
+
 ## Deploying
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fdatejer%2Fvercel-badge%2Ftree%2Fmaster)

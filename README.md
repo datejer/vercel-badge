@@ -14,14 +14,30 @@ Replace `[owner]` with the username of the repo owner, or the organization name 
 
 Replace `[repo]` with the repository name.
 
+(optional) Add the `?style=` parameter to change the visual badge style.
+
+| Parameter | Types                                                                           | Description                             | Example                                                                       |
+| --------- | ------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
+| style     | Default: `flat`<br>Available: `flat`, `flat-square`, `for-the-badge`, `plastic` | Select the visual style for your badge. | `https://vercelbadge.vercel.app/api/datejer/vercel-badge?style=for-the-badge` |
+
 ## Examples
 
-These are all of the possible Vercel deployment statuses.
+These are all of the possible Vercel deployment statuses. (`flat` style)
 
-![Passing Demo](https://vercelbadge.vercel.app/assets/passing.svg)
-![Pending Demo](https://vercelbadge.vercel.app/assets/pending.svg)
-![Failed Demo](https://vercelbadge.vercel.app/assets/failed.svg)
-![None Demo](https://vercelbadge.vercel.app/assets/none.svg)
+![Passing Demo](https://vercelbadge.vercel.app/assets/flat/passing.svg)
+![Pending Demo](https://vercelbadge.vercel.app/assets/flat/pending.svg)
+![Failed Demo](https://vercelbadge.vercel.app/assets/flat/failed.svg)
+![None Demo](https://vercelbadge.vercel.app/assets/flat/none.svg)
+
+---
+
+`flat-square` style: ![Passing Flat Square Demo](https://vercelbadge.vercel.app/assets/flat-square/passing.svg)
+
+`for-the-badge` style: ![Passing For The Badge Demo](https://vercelbadge.vercel.app/assets/for-the-badge/passing.svg)
+
+`plastic` style: ![Passing Plastic Demo](https://vercelbadge.vercel.app/assets/plastic/passing.svg)
+
+---
 
 ## Ratelimits
 

@@ -4,7 +4,7 @@ import fs from "fs";
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-export default (req: VercelRequest, res: VercelResponse) => {
+export default function handler(req: VercelRequest, res: VercelResponse) {
   const { owner, repo } = req.query;
 
   if (!owner || typeof owner !== "string") {
@@ -101,4 +101,4 @@ export default (req: VercelRequest, res: VercelResponse) => {
         )
         .pipe(res);
     });
-};
+}
